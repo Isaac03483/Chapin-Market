@@ -11,12 +11,13 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "cardTypeId")
 public class CardType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @JoinColumn(name = "card_type_id")
+    private Long cardTypeId;
 
     private String cardName;
     private Integer pointsPerReq;

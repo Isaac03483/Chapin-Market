@@ -16,10 +16,11 @@ import java.math.BigDecimal;
 public class ClientCard {
 
     @Id
-//    @Column(name = "client_nit")
+    @JoinColumn(name = "client_nit")
     private String clientNit;
 
     @OneToOne
+    @JoinColumn(name = "card_id")
     private CardType cardType;
     private BigDecimal currentSpent;
 }
