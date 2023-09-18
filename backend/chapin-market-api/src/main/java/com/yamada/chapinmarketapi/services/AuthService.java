@@ -5,24 +5,21 @@ import com.yamada.chapinmarketapi.exceptions.UserNotFoundException;
 import com.yamada.chapinmarketapi.models.Employee;
 import com.yamada.chapinmarketapi.repositories.EmployeeRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class AuthService {
+public class AuthService implements UserDetailsService {
 
     private final EmployeeRepository employeeRepository;
-    public ResponseEntity auth(AuthRequest authRequest) {
-        Employee employee = employeeRepository.findByEmployeeName(authRequest.username());
 
-        if (employee == null) {
-            throw new UserNotFoundException("User not found in db");
-        }
-
-        //TODO: check if password matches
-
-        System.out.println("employee = " + employee.getEmployeeName());
-        return ResponseEntity.ok().build();
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return employeeRepository.findByUserName(username);
     }
 }
