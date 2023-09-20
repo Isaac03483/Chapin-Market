@@ -1,0 +1,30 @@
+<div *ngIf="this.employee != null">
+  <app-user-info [employeeData]="this.employee"></app-user-info>
+</div>
+
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link a-pointer" (click)="changeNavBarState(NavBarState.ADD_SALE)">Registrar Venta</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link a-pointer" (click)="changeNavBarState(NavBarState.ADD_CLIENT)">Agregar Cliente</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link a-pointer" (click)="changeNavBarState(NavBarState.UPDATE_CLIENT)">Actualizar Cliente</a>
+  </li>
+  <li class="nav-item" *ngIf="navBarState != NavBarState.CLOSED">
+    <a class="nav-link a-pointer" style="color: red" (click)="changeNavBarState(NavBarState.CLOSED)">Cerrar</a>
+  </li>
+</ul>
+
+<div *ngIf="this.navBarState === NavBarState.ADD_SALE">
+  <app-add-sale-page></app-add-sale-page>
+</div>
+
+<div *ngIf="this.navBarState === NavBarState.ADD_CLIENT">
+  <app-add-client-page></app-add-client-page>
+</div>
+
+<div *ngIf="this.navBarState === NavBarState.UPDATE_CLIENT">
+  <app-update-client-page></app-update-client-page>
+</div>

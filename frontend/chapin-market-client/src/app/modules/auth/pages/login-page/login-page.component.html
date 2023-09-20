@@ -1,0 +1,17 @@
+<!--<app-user-header></app-user-header>-->
+<div class="container p-5">
+  <form (ngSubmit)="sendLogin()" [formGroup]="formLogin" class="form-control">
+    <h1 class="p-4">Inicio de sesión</h1>
+    <div class="p-4 pb-0">
+      <label for="userNameInput" class="form-label">Nombre de usuario</label>
+      <input formControlName="username" id="userNameInput" class="form-control" type="text">
+    </div>
+    <div class="p-4 pb-0">
+      <label for="passwordInput" class="form-label">Contraseña</label>
+      <input formControlName="password" id="passwordInput" class="form-control" type="password">
+    </div>
+    <div class="p-4">
+      <button class="btn btn-primary">Iniciar Sesión</button>
+    </div>
+  </form>
+</div>
