@@ -1,6 +1,7 @@
 package com.yamada.chapinmarketapi.controllers;
 
 import com.yamada.chapinmarketapi.dto.AuthRequest;
+import com.yamada.chapinmarketapi.dto.EmployeeResponse;
 import com.yamada.chapinmarketapi.models.Employee;
 import com.yamada.chapinmarketapi.repositories.EmployeeRepository;
 import com.yamada.chapinmarketapi.services.AuthService;
@@ -30,9 +31,10 @@ public class AuthController {
                 authRequest.password());
 
         Authentication authentication = authenticationManager.authenticate(authToken);
-        String jwt = tokenService.getToken((Employee) authentication.getPrincipal());
+        Employee employee = (Employee) authentication.getPrincipal();
+        String jwt = tokenService.getToken(employee);
 
-        return ResponseEntity.ok(new JwtToken(jwt));
+        return ResponseEntity.ok(new JwtToken(new EmployeeResponse(employee),jwt));
 
     }
 }

@@ -24,13 +24,11 @@ CREATE TABLE schema_staff.employees_types (
 CREATE TABLE schema_staff.employees (
     employee_id SERIAL PRIMARY KEY,
     employee_name VARCHAR(50) NOT NULL,
+    user_name VARCHAR(50) NOT NULL UNIQUE,
     employee_password VARCHAR(300) NOT NULL,
-    branch_offices_id INT NOT NULL REFERENCES schema_branch_offices.branch_offices(branch_office_id),
+    branch_office_id INT NOT NULL REFERENCES schema_branch_offices.branch_offices(branch_office_id),
     employee_type INT NOT NULL REFERENCES schema_staff.employees_types(type_id)
 );
-
-ALTER TABLE schema_staff.employees RENAME COLUMN branch_offices_id TO
-    branch_office_id;
 
 CREATE TABLE schema_branch_offices.cash_registers (
     id SERIAL PRIMARY KEY,
@@ -44,10 +42,9 @@ CREATE TABLE schema_inventory.products (
     product_name VARCHAR(50) NOT NULL,
     product_state VARCHAR(30) DEFAULT true,
     brand VARCHAR(100) NOT NULL,
-    branch_office_id INT NOT NULL REFERENCES schema_branch_offices.branch_offices(branch_office_id)
+    branch_office_id INT NOT NULL REFERENCES schema_branch_offices.branch_offices(branch_office_id),
+    price DECIMAL(10,2) NOT NULL
 );
-
-ALTER TABLE schema_inventory.products ADD COLUMN price DECIMAL(10,2) NOT NULL DEFAULT 0.00;
 
 CREATE TABLE schema_clients.clients (
     nit VARCHAR(10) NOT NULL PRIMARY KEY,
@@ -59,12 +56,10 @@ CREATE TABLE schema_sales.bills (
     bill_date DATE NOT NULL,
     client_nit VARCHAR(10) NOT NULL REFERENCES schema_clients.clients(nit),
     employee_id INT NOT NULL REFERENCES schema_staff.employees(employee_id),
+    branch_office_id INT NOT NULL REFERENCES schema_branch_offices.branch_offices(branch_office_id),
     total_without_discount DECIMAL(10,2) NOT NULL,
     total_with_discount DECIMAL(10,2) NOT NULL
 );
-
-ALTER TABLE schema_sales.bills
-    ADD COLUMN branch_office_id INT NOT NULL REFERENCES schema_branch_offices.branch_offices(branch_office_id) DEFAULT 1;
 
 CREATE TABLE schema_sales.sales_details (
     detail_id SERIAL PRIMARY KEY,
@@ -72,7 +67,6 @@ CREATE TABLE schema_sales.sales_details (
     product_id INT NOT NULL REFERENCES schema_inventory.products(product_id),
     product_amount INT NOT NULL
 );
-
 
 CREATE TABLE schema_clients.cards_types (
     card_type_id SERIAL PRIMARY KEY,
@@ -100,32 +94,31 @@ VALUES ('Sucursal Sur', 'Quetzaltenango');
 INSERT INTO schema_staff.employees_types(name_type)
 VALUES ('CAJERO'),('BODEGA'),('INVENTARIO'),('ADMINISTRADOR');
 
-INSERT INTO schema_staff.employees(employee_name, employee_password, branch_offices_id, employee_type)
-VALUES ('UserC1C','$2a$10$P5LBBfBeoy0dknZHLEEAkOHmWrjmb5kKj9J3MXMvUnohx0AnKOcHe',1,1),('UserC2C','$2a$10$WU1HSDSv1M3J04n66/69Duic2A0BsKwLMUqrfxj7FDvJz08pLZDfC',1,1),('UserC3C','$2a$10$QlpFFbLG.qKdGx63O3r9xeqXnFoLkH8/jQOfZf/.aY0O9J2XJPdGO',1,1),
-       ('UserC4C','$2a$10$mclJAALvIA3y/7VWDeaqMe6/XWJUi7MSl4OU4CXVyRa4YVRgZC5KO',1,1),('UserC5C','$2a$10$CI9C.hswprQ06xHExJk.FOBsbVGKeqMf4X6x63L3B8wZjnq0LuYP6',1,1),('UserC6C','$2a$10$OGoGnyP.3OH0BODaQwrPuOtcadT13/m8WqPNtWF1EbKqDlgMI2RLG',1,1),
-       ('UserN1C','$2a$10$9iI3ycJuV.hItOKIYN2F7eAHM2avw6qqEzcRaEzHq5Qlasb6n9seq',2,1),('UserN2C','$2a$10$9b188HbeAVLxRGlXn1TCCeSH1RICrROw6XllbkEGbz5ODaTKz8W0C',2,1),('UserN3C','$2a$10$9E87Kkw.QCI2YG.wenzwkOspo8PkxRABYWMNjd1JtzfbB2wzevy/O',2,1),
-       ('UserN4C','$2a$10$p/i7K/fEVVAyxvs1Ef38kOOhn.1yQ8lR9ynV2QRGje.Ktawa3HxMm',2,1),('UserN5C','$2a$10$CgpwCHjJxRplm68bqO2qReoFHHAYtOAqrnNrQtDEsVqtIaLT4A1.W',2,1),('UserN6C','$2a$10$ZS5fwqiU9j.q5nfVkGz5uO7V40FlWzL0LIifzgLHO.tc.tlsOux5q',2,1),
-       ('UserS1C','$2a$10$CwKCVeuXQtyPYL3x6ziXt.MmqK1PmROk5OOPVtkad0iNe3Wc35/4e',3,1),('UserS2C','$2a$10$XNDgsuKN0Oq7hFgcBiHOkOcQoktFhZhj1s2ZbU/UgV3BYcSOt1nz2',3,1),('UserS3C','$2a$10$GR7TcBg5SbY9Wz1VU5GwluprUMBfuHucFqSBQISfgSw.njSR5RyNG',3,1),
-       ('UserS4C','$2a$10$NFQpc3s6mxbn.Q1CtU9ZOOgkhhg//vB/l1K00iyvTAEzb/VZLngGW',3,1),('UserS5C','$2a$10$LwpR7u88XVXt3jD689clf./mAlZ8nH8RMXOsf4K60QDHGx0DcXMc2',3,1),('UserS6C','$2a$10$oeaUV91Nuxfyg4gbq0h3GOgyCvvBNtmPTPaqCaxrBJizt8cSqJ/5W',3,1);
+INSERT INTO schema_staff.employees(employee_name, user_name,employee_password, branch_office_id, employee_type)
+VALUES ('Juan Mendoza','UserC1C','$2a$10$P5LBBfBeoy0dknZHLEEAkOHmWrjmb5kKj9J3MXMvUnohx0AnKOcHe',1,1),('Manuel Vásquez','UserC2C','$2a$10$WU1HSDSv1M3J04n66/69Duic2A0BsKwLMUqrfxj7FDvJz08pLZDfC',1,1),('Estefany Barrios','UserC3C','$2a$10$QlpFFbLG.qKdGx63O3r9xeqXnFoLkH8/jQOfZf/.aY0O9J2XJPdGO',1,1),
+       ('Carlos Cifuentes','UserC4C','$2a$10$mclJAALvIA3y/7VWDeaqMe6/XWJUi7MSl4OU4CXVyRa4YVRgZC5KO',1,1),('Diego Costa','UserC5C','$2a$10$CI9C.hswprQ06xHExJk.FOBsbVGKeqMf4X6x63L3B8wZjnq0LuYP6',1,1),('Ricardo Mendoza','UserC6C','$2a$10$OGoGnyP.3OH0BODaQwrPuOtcadT13/m8WqPNtWF1EbKqDlgMI2RLG',1,1),
+       ('Maria Sosa','UserN1C','$2a$10$9iI3ycJuV.hItOKIYN2F7eAHM2avw6qqEzcRaEzHq5Qlasb6n9seq',2,1),('Alex Ramírez','UserN2C','$2a$10$9b188HbeAVLxRGlXn1TCCeSH1RICrROw6XllbkEGbz5ODaTKz8W0C',2,1),('Wendy Estrada','UserN3C','$2a$10$9E87Kkw.QCI2YG.wenzwkOspo8PkxRABYWMNjd1JtzfbB2wzevy/O',2,1),
+       ('Marco Martinez','UserN4C','$2a$10$p/i7K/fEVVAyxvs1Ef38kOOhn.1yQ8lR9ynV2QRGje.Ktawa3HxMm',2,1),('José Morales','UserN5C','$2a$10$CgpwCHjJxRplm68bqO2qReoFHHAYtOAqrnNrQtDEsVqtIaLT4A1.W',2,1),('William Ordóñez','UserN6C','$2a$10$ZS5fwqiU9j.q5nfVkGz5uO7V40FlWzL0LIifzgLHO.tc.tlsOux5q',2,1),
+       ('Sofía Velasquez','UserS1C','$2a$10$CwKCVeuXQtyPYL3x6ziXt.MmqK1PmROk5OOPVtkad0iNe3Wc35/4e',3,1),('Carlos de Leon','UserS2C','$2a$10$XNDgsuKN0Oq7hFgcBiHOkOcQoktFhZhj1s2ZbU/UgV3BYcSOt1nz2',3,1),('Ernesto Gutierrez','UserS3C','$2a$10$GR7TcBg5SbY9Wz1VU5GwluprUMBfuHucFqSBQISfgSw.njSR5RyNG',3,1),
+       ('Miriam Bolañoz','UserS4C','$2a$10$NFQpc3s6mxbn.Q1CtU9ZOOgkhhg//vB/l1K00iyvTAEzb/VZLngGW',3,1),('Miguel Choc','UserS5C','$2a$10$LwpR7u88XVXt3jD689clf./mAlZ8nH8RMXOsf4K60QDHGx0DcXMc2',3,1),('José Guzmán','UserS6C','$2a$10$oeaUV91Nuxfyg4gbq0h3GOgyCvvBNtmPTPaqCaxrBJizt8cSqJ/5W',3,1);
 
-INSERT INTO schema_staff.employees(employee_name, employee_password, branch_offices_id, employee_type)
-VALUES ('UserC1I','$2a$10$HTQLzue0z/kt7PwW2yaQaOyf9MN2qK30fVqY6BhPhCbUkyaJWeUPy',1,3),('UserC2I','$2a$10$6EWEc0i0FQ4b44ATQhLTN.e95HaSQYTyLB.jS41X4XCmOiPiVjUOS',1,3),
-       ('UserC3I','$2a$10$RjdZgeeblO3InwUzjCwmYuxd8g63pF8rmq1DL.PTI2cz.Rf3qhzSi',1,3),('UserC4I','$2a$10$w/hUMKVsi7krI.456NFiSui9z68Nib8pQjnYbMOPQcUzagLRVowge',1,3),
-       ('UserN1I','$2a$10$/CSKu18lYvR6KcBhpkbv0ufNLnk3/IYNrTzjS0Trt/ToSZ7hYY3Sy',2,3),('UserN2I','$2a$10$zWdjwn4hdNByLWFD1EX/QOAkQe0O/d6aldLFFEr0oax5yXdXvP57K',2,3),
-       ('UserN3I','$2a$10$W9ZOL70/7JE/8sl3bDOfxOGJi31uxUt81m6MFV8gnKkzNI9FKkTT2',2,3),('UserN4I','$2a$10$jwESdznA59.Zc2TLiKfzf.fYfNVaUGqMG9DQmqxN6.NzKnvXWdfze',2,3),
-       ('UserS1I','$2a$10$q.kASn7M.yN6pudwNYfIjO9WthhG0xSmajfPSIlqfBtV9qVMEI/9O',3,3),('UserS2I','$2a$10$k/UakZbwgYYC4pNl8TgbOeemHtHmUdTLg5Pbfg.7r/Az1ky71sKXO',3,3),
-       ('UserS3I','$2a$10$e8XJsGGb1qFnMzU7PHfvXeQiErqsFJaolXq7IaQIcew.txbzZNLzG',3,3),('UserS4I','$2a$10$P07MqCywo5yKTcTJUHGD9OSewkLixRAhlb5sw5iFlTTCFBXHB5.WS',3,3);
+INSERT INTO schema_staff.employees(employee_name,user_name, employee_password, branch_office_id, employee_type)
+VALUES ('Pablo Medina','UserC1I','$2a$10$HTQLzue0z/kt7PwW2yaQaOyf9MN2qK30fVqY6BhPhCbUkyaJWeUPy',1,3),('Ernesto de la Rosa','UserC2I','$2a$10$6EWEc0i0FQ4b44ATQhLTN.e95HaSQYTyLB.jS41X4XCmOiPiVjUOS',1,3),
+       ('Paco Perez','UserC3I','$2a$10$RjdZgeeblO3InwUzjCwmYuxd8g63pF8rmq1DL.PTI2cz.Rf3qhzSi',1,3),('Pablo Cardona','UserC4I','$2a$10$w/hUMKVsi7krI.456NFiSui9z68Nib8pQjnYbMOPQcUzagLRVowge',1,3),
+       ('Luis Mendoza','UserN1I','$2a$10$/CSKu18lYvR6KcBhpkbv0ufNLnk3/IYNrTzjS0Trt/ToSZ7hYY3Sy',2,3),('Bryan Ruiz','UserN2I','$2a$10$zWdjwn4hdNByLWFD1EX/QOAkQe0O/d6aldLFFEr0oax5yXdXvP57K',2,3),
+       ('Laura Hernández','UserN3I','$2a$10$W9ZOL70/7JE/8sl3bDOfxOGJi31uxUt81m6MFV8gnKkzNI9FKkTT2',2,3),('Miguel Rivas','UserN4I','$2a$10$jwESdznA59.Zc2TLiKfzf.fYfNVaUGqMG9DQmqxN6.NzKnvXWdfze',2,3),
+       ('Lois Lein','UserS1I','$2a$10$q.kASn7M.yN6pudwNYfIjO9WthhG0xSmajfPSIlqfBtV9qVMEI/9O',3,3),('Daniel Jiménez','UserS2I','$2a$10$k/UakZbwgYYC4pNl8TgbOeemHtHmUdTLg5Pbfg.7r/Az1ky71sKXO',3,3),
+       ('Lucas Fernandez','UserS3I','$2a$10$e8XJsGGb1qFnMzU7PHfvXeQiErqsFJaolXq7IaQIcew.txbzZNLzG',3,3),('Erick Castro','UserS4I','$2a$10$P07MqCywo5yKTcTJUHGD9OSewkLixRAhlb5sw5iFlTTCFBXHB5.WS',3,3);
 
-INSERT INTO schema_staff.employees(employee_name, employee_password, branch_offices_id, employee_type)
-VALUES ('UserC1B','$2a$10$68S.kytvLj0Y/zLIGuRh7eocTEJs4GGkn4GXNcbw9ZRtB8MFYs9Dy',1,2),
-       ('UserN1B','$2a$10$VTjahn2WzV.80VM3sCg8DO9lJ13R6eQihwxj2Nxp7POWyZhRLj7YG',2,2),
-       ('UserS1B','$2a$10$bPMn2Zw1QI9bEErzfxaIyOM1Do8q/HmUrb9VbN7ufuUC7krwAtz.a',3,2);
+INSERT INTO schema_staff.employees(employee_name,user_name, employee_password, branch_office_id, employee_type)
+VALUES ('Zury Martínez','UserC1B','$2a$10$68S.kytvLj0Y/zLIGuRh7eocTEJs4GGkn4GXNcbw9ZRtB8MFYs9Dy',1,2),
+       ('Carlos Ríos','UserN1B','$2a$10$VTjahn2WzV.80VM3sCg8DO9lJ13R6eQihwxj2Nxp7POWyZhRLj7YG',2,2),
+       ('Christian Ramírez','UserS1B','$2a$10$bPMn2Zw1QI9bEErzfxaIyOM1Do8q/HmUrb9VbN7ufuUC7krwAtz.a',3,2);
 
-INSERT INTO schema_staff.employees(employee_name, employee_password, branch_offices_id, employee_type)
-VALUES ('UserC1A','$2a$10$29sgBcyad.kkBEZ1fR2w3OnOkbyxrsa8/EJCCZ/TXoCbr1jKoOLNu',1,4),
-       ('UserN1A','$2a$10$8xEhA4VErbQY4axNWv1pTuvb1zz5M.B9SWHZUcXB8oZ7NhZg9Cefi',2,4),
-       ('UserS1A','$2a$10$4qnk64HMmroQJmVMyE8fW.QIJEaTOhRUQfuLn4kSKcBwp9kfdUyae',3,4);
-
+INSERT INTO schema_staff.employees(employee_name, user_name, employee_password, branch_office_id, employee_type)
+VALUES ('Christina García','UserC1A','$2a$10$29sgBcyad.kkBEZ1fR2w3OnOkbyxrsa8/EJCCZ/TXoCbr1jKoOLNu',1,4),
+       ('Moises Moralez','UserN1A','$2a$10$8xEhA4VErbQY4axNWv1pTuvb1zz5M.B9SWHZUcXB8oZ7NhZg9Cefi',2,4),
+       ('Susana Gómez','UserS1A','$2a$10$4qnk64HMmroQJmVMyE8fW.QIJEaTOhRUQfuLn4kSKcBwp9kfdUyae',3,4);
 
 INSERT INTO schema_branch_offices.cash_registers(employee_id)
 VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18);

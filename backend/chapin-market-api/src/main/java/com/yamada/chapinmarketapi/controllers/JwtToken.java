@@ -1,4 +1,6 @@
 package com.yamada.chapinmarketapi.controllers;
 
-public record JwtToken(String jwt) {
+import com.yamada.chapinmarketapi.dto.EmployeeResponse;
+
+public record JwtToken(EmployeeResponse employeeResponse, String jwt) {
 }

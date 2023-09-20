@@ -2,8 +2,8 @@ package com.yamada.chapinmarketapi.dto;
 
 import com.yamada.chapinmarketapi.models.BranchOffice;
 
-public record BranchOfficeResponse(String branchOfficeName) {
+public record BranchOfficeResponse(Long id,String branchOfficeName) {
     public BranchOfficeResponse(BranchOffice branchOffice) {
-        this(branchOffice.getName());
+        this(branchOffice.getBranchOfficeId(), branchOffice.getName());
     }
 }
