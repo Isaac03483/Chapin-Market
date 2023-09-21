@@ -9,6 +9,9 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +35,13 @@ public class ProductController {
     public ResponseEntity<ProductResponse> moveProductToEstanteria(@RequestBody MoveProductRequest moveProductRequest) {
         ProductResponse productResponse = productService.moveProductToEstanteria(moveProductRequest);
         return ResponseEntity.ok(productResponse);
+    }
+
+    @GetMapping("/{id}/{state}")
+    public ResponseEntity<Page<ProductResponse>> getProductsByBranchOfficeIdAndProductState(@PageableDefault(size = 15) Pageable pageable,
+                                                                              @PathVariable Long id, @PathVariable String state) {
+        Page<ProductResponse> productResponses = productService.getProductsByBranchOfficeIdAndProductState(pageable, id, state);
+        return ResponseEntity.ok(productResponses);
     }
 
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginPageComponent} from "../../../modules/auth/pages/login-page/login-page.component";
 import {Employee} from "../../../core/models/Employee";
-import {AuthService} from "../../../modules/auth/services/auth.service";
+import {AuthService} from "../../../services/auth/auth.service";
 import {EmployeeType} from "../../../core/models/EmployeeType";
 
 @Component({

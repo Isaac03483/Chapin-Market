@@ -1,11 +1,10 @@
 <div class="container" *ngIf="employeeInfo != null">
-  <div class="card m-4">
-    <div class="card-body text-center">
+  <div class="card m-4 w-50">
+    <div class="card-body">
       <h5 class="my-3">Empleado: {{this.employeeInfo?.employeeName}}</h5>
-      <p class="text-muted mb-1">{{this.employeeInfo?.branchOffice?.branchOfficeName}}</p>
-      <p class="text-muted mb-1">{{this.employeeInfo?.userName}}</p>
-      <p class="text-muted mb-1">{{this.employeeInfo?.employeeType?.employeeTypeName}}</p>
-
+      <p class="text-muted mb-1">Sucursal: {{this.employeeInfo?.branchOffice?.branchOfficeName}}</p>
+      <p class="text-muted mb-1">Usuario: {{this.employeeInfo?.userName}}</p>
+      <p class="text-muted mb-1">Tipo de empleado: {{this.employeeInfo?.employeeType?.employeeTypeName}}</p>
       <a (click)="logout()" class="btn btn-info btn-lg text-white my-2">Cerrar Sesión</a>
     </div>
   </div>

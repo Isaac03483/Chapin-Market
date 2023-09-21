@@ -1,1 +1,20 @@
-<p>add-product-page works!</p>
+<div class="container p-5">
+  <form (ngSubmit)="addProduct()" class="form-control" [formGroup]="addProductForm">
+    <h3 class="p-4">Registrar nuevo Producto</h3>
+    <div class="p-4 pb-0">
+      <label for="productName" class="form-label">Nombre del producto</label>
+      <input formControlName="productName" id="productName" class="form-control" placeholder="Ingrese el nombre del producto">
+    </div>
+    <div class="p-4 pb-0">
+      <label for="productBrand" class="form-label">Marca del producto</label>
+      <input formControlName="brand" id="productBrand" class="form-control" placeholder="Ingrese la marca del producto">
+    </div>
+    <div class="p-4 pb-0">
+      <label for="productPrice" class="form-label">Precio del producto</label>
+      <input formControlName="price" type="number" id="productPrice" class="form-control" placeholder="Ingrese el precio del producto">
+    </div>
+    <div class="p-4">
+      <button class="btn btn-primary">Agregar Producto</button>
+    </div>
+  </form>
+</div>

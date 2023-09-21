@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
+import {AuthService} from "../../../../services/auth/auth.service";
 import {Employee} from "../../../../core/models/Employee";
 import {EmployeeType} from "../../../../core/models/EmployeeType";
 import {BranchOffice} from "../../../../core/models/BranchOffice";

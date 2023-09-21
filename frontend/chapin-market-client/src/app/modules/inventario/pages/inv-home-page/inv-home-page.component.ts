@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Employee} from "../../../../core/models/Employee";
-import {EmployeeService} from "../../../../shared/services/employee.service";
+import {EmployeeService} from "../../../../services/employee/employee.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -11,6 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 export class InvHomePageComponent implements OnInit {
 
   employee: Employee | null = null;
+  navBarState : NavBarState = NavBarState.CLOSED
 
   constructor(private employeeService: EmployeeService, private activatedRoute: ActivatedRoute) {
   }
@@ -27,4 +28,14 @@ export class InvHomePageComponent implements OnInit {
     })
   }
 
+  changeNavBarState(navBarState: NavBarState) {
+    this.navBarState = navBarState;
+  }
+
+
+  protected readonly NavBarState = NavBarState;
+}
+
+enum NavBarState {
+  MOVE_PRODUCT, SHOW_PRODUCT, CLOSED
 }

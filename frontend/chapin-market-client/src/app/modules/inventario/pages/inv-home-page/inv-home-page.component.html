@@ -1,3 +1,23 @@
 <div *ngIf="this.employee != null">
   <app-user-info [employeeData]="this.employee"></app-user-info>
+
+  <ul class="nav justify-content-center">
+    <li class="nav-item">
+      <a class="nav-link a-pointer" (click)="changeNavBarState(NavBarState.MOVE_PRODUCT)">Mover Productos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link a-pointer" (click)="changeNavBarState(NavBarState.SHOW_PRODUCT)">Mostrar Productos</a>
+    </li>
+    <li class="nav-item" *ngIf="navBarState != NavBarState.CLOSED">
+      <a class="nav-link a-pointer" style="color: red" (click)="changeNavBarState(NavBarState.CLOSED)">Cerrar</a>
+    </li>
+  </ul>
+
+  <div *ngIf="navBarState === NavBarState.MOVE_PRODUCT">
+    <app-move-product-page [employeeData]="this.employee"></app-move-product-page>
+  </div>
+  <div *ngIf="navBarState === NavBarState.SHOW_PRODUCT">
+    <app-show-products-page [employeeData]="this.employee"></app-show-products-page>
+  </div>
+
 </div>

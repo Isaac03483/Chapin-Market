@@ -27,7 +27,8 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(httpSecurity -> httpSecurity
                         .requestMatchers(HttpMethod.POST,"/chapin-market/login").permitAll()
-                        .requestMatchers("/chapin-market/employees/**").permitAll())
+                        .requestMatchers("/chapin-market/employees/**").permitAll()
+                        .requestMatchers("/chapin-market/products/**").permitAll())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();

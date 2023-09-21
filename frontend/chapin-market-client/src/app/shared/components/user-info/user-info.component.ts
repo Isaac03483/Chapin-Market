@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Employee} from "../../../core/models/Employee";
-import {EmployeeService} from "../../services/employee.service";
+import {EmployeeService} from "../../../services/employee/employee.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
 

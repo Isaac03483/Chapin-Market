@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Employee} from "../../../../core/models/Employee";
-import {EmployeeService} from "../../../../shared/services/employee.service";
+import {EmployeeService} from "../../../../services/employee/employee.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -37,6 +37,6 @@ export class CajeroHomePageComponent implements OnInit {
 
 }
 
-export enum NavBarState {
+enum NavBarState {
   ADD_CLIENT, UPDATE_CLIENT, ADD_SALE, CLOSED
 }

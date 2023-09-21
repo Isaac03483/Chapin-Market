@@ -6,6 +6,7 @@ import { InvHomePageComponent } from './pages/inv-home-page/inv-home-page.compon
 import {SharedModule} from "../../shared/shared.module";
 import { MoveProductPageComponent } from './pages/move-product-page/move-product-page.component';
 import { ShowProductsPageComponent } from './pages/show-products-page/show-products-page.component';
+import {NgxPaginationModule} from "ngx-pagination";
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ShowProductsPageComponent } from './pages/show-products-page/show-produ
     imports: [
         CommonModule,
         InventarioRoutingModule,
-        SharedModule
+        SharedModule,
+        NgxPaginationModule
     ]
 })
 export class InventarioModule { }

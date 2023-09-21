@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import {SharedModule} from "./shared/shared.module";
 import {HttpClientModule} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
+import {NgxPaginationModule} from "ngx-pagination";
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {CookieService} from "ngx-cookie-service";
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

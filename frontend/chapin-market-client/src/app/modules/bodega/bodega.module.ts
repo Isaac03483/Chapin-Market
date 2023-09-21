@@ -5,6 +5,7 @@ import { BodegaRoutingModule } from './bodega-routing.module';
 import { BodegaHomePageComponent } from './pages/bodega-home-page/bodega-home-page.component';
 import {SharedModule} from "../../shared/shared.module";
 import { AddProductPageComponent } from './pages/add-product-page/add-product-page.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -12,10 +13,11 @@ import { AddProductPageComponent } from './pages/add-product-page/add-product-pa
     BodegaHomePageComponent,
     AddProductPageComponent,
   ],
-  imports: [
-    CommonModule,
-    BodegaRoutingModule,
-    SharedModule
-  ]
+    imports: [
+        CommonModule,
+        BodegaRoutingModule,
+        SharedModule,
+        ReactiveFormsModule
+    ]
 })
 export class BodegaModule { }
