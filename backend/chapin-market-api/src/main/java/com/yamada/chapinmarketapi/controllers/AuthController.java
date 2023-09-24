@@ -2,9 +2,8 @@ package com.yamada.chapinmarketapi.controllers;
 
 import com.yamada.chapinmarketapi.dto.AuthRequest;
 import com.yamada.chapinmarketapi.dto.EmployeeResponse;
+import com.yamada.chapinmarketapi.dto.JwtToken;
 import com.yamada.chapinmarketapi.models.Employee;
-import com.yamada.chapinmarketapi.repositories.EmployeeRepository;
-import com.yamada.chapinmarketapi.services.AuthService;
 import com.yamada.chapinmarketapi.services.TokenService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

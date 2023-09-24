@@ -1,4 +1,4 @@
-package com.yamada.chapinmarketapi.controllers;
+package com.yamada.chapinmarketapi.dto;
 
 import com.yamada.chapinmarketapi.dto.EmployeeResponse;
 

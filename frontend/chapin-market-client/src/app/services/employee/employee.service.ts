@@ -17,4 +17,8 @@ export class EmployeeService {
     console.log(URL)
     return this.httpClient.get(`${this.Url}/employees/${id}`)
   }
+
+  getEmployeesByBranchOfficeId(id: number,page: number) : Observable<any> {
+    return this.httpClient.get(`${this.Url}/employees/branch-office/${id}?page=${page}`)
+  }
 }

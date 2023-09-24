@@ -3,11 +3,13 @@
   <div class="m-4 text-center">
     <pagination-controls (pageChange)="getPageAt($event)" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
   </div>
-  <div class="card m-3 mb-1 p-3 w-50" *ngFor="let product of products | paginate: { itemsPerPage: 15, currentPage: currentIndex, totalItems: numberOfElements}">
-    <h5 class="card-title">{{product.productName}}</h5>
-    <h6 class="text-muted card-subtitle">Código: {{product.productId}}</h6>
-    <p class="text-muted card-text">Marca: {{product.brand}}</p>
-    <p class="text-muted card-text">Precio: {{product.price}}</p>
+  <div class="overflow-auto w-50 m-5" style="max-height: 600px">
+    <div class="card m-3 mb-1 p-3" *ngFor="let product of products | paginate: { itemsPerPage: 15, currentPage: currentIndex, totalItems: numberOfElements}">
+      <h5 class="card-title">{{product.productName}}</h5>
+      <h6 class="text-muted card-subtitle">Código: {{product.productId}}</h6>
+      <p class="text-muted card-text">Marca: {{product.brand}}</p>
+      <p class="text-muted card-text">Precio: {{product.price}}</p>
+    </div>
   </div>
   <div class="m-4 text-center">
     <pagination-controls (pageChange)="getPageAt($event)" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>

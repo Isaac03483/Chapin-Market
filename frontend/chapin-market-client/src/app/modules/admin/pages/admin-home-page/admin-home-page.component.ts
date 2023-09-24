@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Employee} from "../../../../core/models/Employee";
 import {EmployeeService} from "../../../../services/employee/employee.service";
 import {ActivatedRoute} from "@angular/router";
-import {getXHRResponse} from "rxjs/internal/ajax/getXHRResponse";
 
 @Component({
   selector: 'app-admin-home-page',
@@ -12,6 +11,7 @@ import {getXHRResponse} from "rxjs/internal/ajax/getXHRResponse";
 export class AdminHomePageComponent implements OnInit {
 
   employee: Employee | null = null;
+  navBarState: NavBarState = NavBarState.CLOSED;
 
   constructor(private employeeService: EmployeeService, private activatedRoute: ActivatedRoute) {
   }
@@ -29,4 +29,13 @@ export class AdminHomePageComponent implements OnInit {
 
   }
 
+  setNavBarState(navBarState: NavBarState) {
+    this.navBarState = navBarState;
+  }
+
+  protected readonly NavBarState = NavBarState;
+}
+
+enum NavBarState {
+  EMPLOYEES, CARDS, CLOSED
 }

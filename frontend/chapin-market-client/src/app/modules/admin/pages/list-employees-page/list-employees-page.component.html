@@ -1,0 +1,28 @@
+<div class="container p-5">
+  <h2>Empleados en {{this.employeeData.branchOffice.branchOfficeName}}</h2>
+  <div class="m-4 text-center">
+    <pagination-controls (pageChange)="getPageAt($event)" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+  </div>
+
+  <div class="overflow-auto" style="max-height: 600px">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Tipo</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let employee of employees | paginate: { itemsPerPage: 15, currentPage: currentIndex, totalItems: numberOfElements}">
+        <td class="col">{{employee.id}}</td>
+        <td class="col">{{employee.employeeName}}</td>
+        <td class="col">{{employee.employeeType.employeeTypeName}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="m-4 text-center">
+    <pagination-controls (pageChange)="getPageAt($event)" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+  </div>
+</div>
