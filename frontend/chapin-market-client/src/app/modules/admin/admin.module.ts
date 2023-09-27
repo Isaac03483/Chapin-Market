@@ -4,32 +4,40 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminHomePageComponent } from './pages/admin-home-page/admin-home-page.component';
 import {SharedModule} from "../../shared/shared.module";
-import { AddEmployeePageComponent } from './pages/add-employee-page/add-employee-page.component';
-import { AddCardPageComponent } from './pages/add-card-page/add-card-page.component';
-import { UpdateCardPageComponent } from './pages/update-card-page/update-card-page.component';
-import { AddClientCardPageComponent } from './pages/add-client-card-page/add-client-card-page.component';
-import { CardsPageComponent } from './pages/cards-page/cards-page.component';
-import { ListEmployeesPageComponent } from './pages/list-employees-page/list-employees-page.component';
-import { EmployeesPageComponent } from './pages/employees-page/employees-page.component';
+import { AddEmployeePageComponent } from './pages/employees/add-employee-page/add-employee-page.component';
+import { ListEmployeesPageComponent } from './pages/employees/list-employees-page/list-employees-page.component';
 import {NgxPaginationModule} from "ngx-pagination";
+import {ReactiveFormsModule} from "@angular/forms";
+import {EmployeesPageComponent} from "./pages/employees/employees-page/employees-page.component";
+import { ClientsWCardsPageComponent } from './pages/card/clients-w-cards-page/clients-w-cards-page.component';
+import { ClientsCardsPageComponent } from './pages/card/clients-cards-page/clients-cards-page.component';
+import { ListCardsTypesPageComponent } from './pages/card/list-cards-types-page/list-cards-types-page.component';
+import { CardsMenuComponent } from './pages/card/cards-menu/cards-menu.component';
+import { CardsHomePageComponent } from './pages/card/cards-home-page/cards-home-page.component';
+import { ClientsCardsHomePageComponent } from './pages/card/clients-cards-home-page/clients-cards-home-page.component';
+import { UpdateCardPageComponent } from './pages/card/update-card-page/update-card-page.component';
 
 
 @NgModule({
   declarations: [
     AdminHomePageComponent,
     AddEmployeePageComponent,
-    AddCardPageComponent,
-    UpdateCardPageComponent,
-    AddClientCardPageComponent,
-    CardsPageComponent,
     ListEmployeesPageComponent,
-    EmployeesPageComponent
+    EmployeesPageComponent,
+    ClientsWCardsPageComponent,
+    ClientsCardsPageComponent,
+    ListCardsTypesPageComponent,
+    CardsMenuComponent,
+    CardsHomePageComponent,
+    ClientsCardsHomePageComponent,
+    UpdateCardPageComponent,
   ],
     imports: [
         CommonModule,
         AdminRoutingModule,
         SharedModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        ReactiveFormsModule
     ]
 })
 export class AdminModule { }

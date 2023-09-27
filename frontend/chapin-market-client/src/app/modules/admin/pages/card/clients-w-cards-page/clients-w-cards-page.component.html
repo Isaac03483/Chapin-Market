@@ -1,0 +1,28 @@
+<div class="container p-5">
+  <h2>Clientes sin Tarjeta</h2>
+  <div class="m-4 text-center">
+    <pagination-controls (pageChange)="getPageAt($event)" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+  </div>
+
+  <div class="overflow-auto" style="max-height: 600px">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Nit</th>
+        <th>Nombre cliente</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let client of this.clients | paginate: { itemsPerPage: 15, currentPage: currentIndex, totalItems: numberOfElements}">
+        <td class="col">{{client.nit}}</td>
+        <td class="col">{{client.clientName}}</td>
+        <td><button class="btn btn-primary" (click)="sendData(client)">Agregar tarjeta</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="m-4 text-center">
+    <pagination-controls (pageChange)="getPageAt($event)" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+  </div>
+</div>

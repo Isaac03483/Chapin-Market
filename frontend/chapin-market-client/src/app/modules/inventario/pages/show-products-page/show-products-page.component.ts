@@ -15,20 +15,20 @@ export class ShowProductsPageComponent implements OnInit{
   @Input() employeeData!: Employee;
 
   products: ProductModel[] = [];
-  currentIndex: number = 0;
+  currentIndex: number = 1;
   numberOfElements: number = 0;
 
   constructor(private productService: ProductService) {
   }
 
   ngOnInit(): void {
-    this.currentIndex = 0;
+    this.currentIndex = 1;
     this.getPage()
   }
 
   getPage() {
     this.productService.getAllProductsByBranchOfficeAndProductState(this.employeeData.branchOffice.id,
-      ProductState.ESTANTERIA, this.currentIndex)
+      ProductState.ESTANTERIA, this.currentIndex - 1)
       .subscribe((response) => {
         this.products = response.content;
         this.numberOfElements = response.totalElements;

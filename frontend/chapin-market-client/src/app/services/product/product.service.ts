@@ -13,6 +13,7 @@ export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
   getAllProductsByBranchOfficeAndProductState(id: number, state: string, currentIndex: number) : Observable<any> {
+    console.log(`${this.Url}/products/${id}/${state}?page=${currentIndex}`);
     return this.httpClient.get(`${this.Url}/products/${id}/${state}?page=${currentIndex}`)
   }
 

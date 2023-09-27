@@ -1,0 +1,32 @@
+<div class="container p-5">
+  <form [formGroup]="employeeForm" class="form-control">
+    <h1 class="p-4">Agregar nuevo Empleado a {{this.employeeData.branchOffice.branchOfficeName}}</h1>
+    <div class="p-4 pb-0">
+      <label for="EmployeeNameInput" class="form-label">Nombre del Empleado</label>
+      <input formControlName="employeeName" id="EmployeeNameInput" class="form-control" type="text" placeholder="Ingrese el nombre del empleado">
+    </div>
+    <div class="p-4 pb-0">
+      <label for="userNameInput" class="form-label">Nombre de usuario</label>
+      <input formControlName="username" id="userNameInput" class="form-control" type="text" placeholder="Ingrese el nombre de usuario">
+    </div>
+    <div class="p-4 pb-0">
+      <label for="passwordInput" class="form-label">Contraseña</label>
+      <input formControlName="password" id="passwordInput" class="form-control" type="password" placeholder="Ingrese la contraseña">
+    </div>
+    <div class="p-4 pb-0">
+      <label for="passwordCheck" class="form-label">Verificar Contraseña</label>
+      <input formControlName="passwordCheck" id="passwordCheck" class="form-control" type="password" placeholder="Ingrese la contraseña otra vez">
+    </div>
+    <div class="p-4 pb-0">
+      <label for="employeeType" class="form-label">Tipo de empleado</label>
+      <!--    <input formControlName="password" id="employeeType" class="form-control" type="password" placeholder="Ingrese su contraseña otra vez">-->
+      <select id="employeeType" class="form-control" formControlName="employeeType">
+        <option class="form-label" [ngValue]="0">Eliga un tipo de empleado</option>
+        <option class="form-label" *ngFor="let type of this.employeeTypes" [ngValue]="type.id">{{type.employeeTypeName}}</option>
+      </select>
+    </div>
+    <div class="p-4">
+      <button (click)="sendData()" class="btn btn-primary">Agregar</button>
+    </div>
+  </form>
+</div>

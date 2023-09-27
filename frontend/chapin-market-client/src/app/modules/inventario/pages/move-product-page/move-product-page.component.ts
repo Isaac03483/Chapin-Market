@@ -14,20 +14,20 @@ export class MoveProductPageComponent implements OnInit{
 
   @Input() employeeData!: Employee;
   products: ProductModel[] = [];
-  currentIndex: number = 0;
+  currentIndex: number = 1;
   numberOfElements: number = 0;
 
   constructor(private productService: ProductService) {
   }
 
   ngOnInit(): void {
-    this.currentIndex = 0;
+    this.currentIndex = 1;
     this.getPage();
   }
 
   getPage() {
     this.productService.getAllProductsByBranchOfficeAndProductState(this.employeeData.branchOffice.id,
-      ProductState.BODEGA, this.currentIndex)
+      ProductState.BODEGA, this.currentIndex - 1)
       .subscribe((response) => {
         console.log(response.content)
         this.products = response.content;

@@ -1,0 +1,21 @@
+<div class="container p-5" *ngIf="this.cardToUpdate !== null">
+  <form [formGroup]="updateForm" class="form-control">
+    <h1 class="p-4">Actualizar tipo de tarjeta: {{this.cardToUpdate.cardName}}</h1>
+    <div class="p-4 pb-0">
+      <label for="cardName" class="form-label">Nombre de la tarjeta</label>
+      <input readonly id="cardName" class="form-control" type="text" [value]="this.cardToUpdate.cardName">
+    </div>
+    <div class="p-4 pb-0">
+      <label for="pointsPerReq" class="form-label">Puntos cada {{this.cardToUpdate.requirements}}</label>
+      <input formControlName="pointsPerReq" id="pointsPerReq" class="form-control" type="number" placeholder="Ingrese el número de puntos">
+    </div>
+    <div class="p-4 pb-0">
+      <label for="minSpent" class="form-label">Dinero gastado necesitado</label>
+      <input formControlName="minSpent" id="minSpent" class="form-control" type="number" placeholder="Ingrese el dinero gastado necesario">
+    </div>
+    <div class="p-4">
+      <button (click)="sendData()" class="btn btn-primary">Actualizar</button>
+    </div>
+  </form>
+
+</div>

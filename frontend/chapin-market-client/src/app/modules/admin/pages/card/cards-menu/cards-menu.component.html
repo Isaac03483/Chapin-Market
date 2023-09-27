@@ -1,0 +1,20 @@
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link a-pointer" (click)="setNavBarState(NavBarState.CARDS_TYPES)">Tipos de Tarjetas</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link a-pointer" (click)="setNavBarState(NavBarState.CLIENTS_CARDS)">Tarjetas de clientes</a>
+  </li>
+  <li class="nav-item" *ngIf="this.navBarState !== NavBarState.CLOSED">
+    <a class="nav-link a-pointer" style="color: red" (click)="setNavBarState(NavBarState.CLOSED)">Cerrar</a>
+  </li>
+</ul>
+
+<div *ngIf="this.navBarState === NavBarState.CARDS_TYPES">
+  <!--  <app-employees-page [employeeData]="this.employee"></app-employees-page>-->
+  <app-cards-home-page></app-cards-home-page>
+</div>
+<div *ngIf="this.navBarState === NavBarState.CLIENTS_CARDS">
+  <!--  <app-cards-page></app-cards-page>-->
+  <app-clients-cards-home-page></app-clients-cards-home-page>
+</div>
