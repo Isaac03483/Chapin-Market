@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Employee} from "../../../../core/models/Employee";
 
 @Component({
   selector: 'app-add-sale-page',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-sale-page.component.css']
 })
 export class AddSalePageComponent {
+
+  @Input() employeeData!: Employee;
 
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {catchError, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class ClientCardService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllClientCards() : Observable<any> {
-    return this.httpClient.get(`${this.Url}/client-cards`)
+  getAllClientCards(page: number) : Observable<any> {
+    return this.httpClient.get(`${this.Url}/client-cards?page=${page}`)
   }
 
   addClientCard(clientNit: string) : Observable<any> {

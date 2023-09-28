@@ -1,28 +1,30 @@
-<!--<div class="container p-5">-->
-<!--  <h2>Clientes sin Tarjeta</h2>-->
-<!--  <div class="m-4 text-center">-->
-<!--    <pagination-controls (pageChange)="getPageAt($event)" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>-->
-<!--  </div>-->
+<div class="container p-5">
+  <h2>Clientes con Tarjeta</h2>
+  <div class="m-4 text-center">
+    <pagination-controls (pageChange)="getPageAt($event)" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+  </div>
 
-<!--  <div class="overflow-auto" style="max-height: 600px">-->
-<!--    <table class="table table-striped">-->
-<!--      <thead>-->
-<!--      <tr>-->
-<!--        <th>Nit</th>-->
-<!--        <th>Nombre cliente</th>-->
-<!--        <th></th>-->
-<!--      </tr>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--      <tr *ngFor="let client of this.clients | paginate: { itemsPerPage: 15, currentPage: currentIndex, totalItems: numberOfElements}">-->
-<!--        <td class="col">{{client.nit}}</td>-->
-<!--        <td class="col">{{client.clientName}}</td>-->
-<!--        <td><button class="btn btn-primary" (click)="sendData(client)">Agregar tarjeta</button></td>-->
-<!--      </tr>-->
-<!--      </tbody>-->
-<!--    </table>-->
-<!--  </div>-->
-<!--  <div class="m-4 text-center">-->
-<!--    <pagination-controls (pageChange)="getPageAt($event)" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>-->
-<!--  </div>-->
-<!--</div>-->
+  <div class="overflow-auto" style="max-height: 600px">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Nit del cliente</th>
+        <th>Nombre de tarjeta</th>
+        <th>Total gastado actualmente</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let clientCard of this.clientCards | paginate: { itemsPerPage: 15, currentPage: currentIndex, totalItems: numberOfElements}">
+        <td class="col">{{clientCard.clientNit}}</td>
+        <td class="col">{{clientCard.cardType.cardName}}</td>
+        <td class="col">{{clientCard.currentSpent}}</td>
+        <td><button class="btn btn-primary" (click)="sendData(clientCard)">Mejorar tarjeta</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="m-4 text-center">
+    <pagination-controls (pageChange)="getPageAt($event)" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+  </div>
+</div>

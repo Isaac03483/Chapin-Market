@@ -1,0 +1,65 @@
+<div class="container p-5">
+  <form  class="form-control">
+    <h1 class="p-4">Agregar nueva venta</h1>
+    <div class="p-4 pb-0" *ngIf="this.productsList.length > 0">
+      <h5 class="form-label">Productos</h5>
+      <div class="overflow-auto" style="max-height: 150px">
+        <table class="table table-striped table-bordered">
+          <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let product of this.productsList">
+            <td class="col">{{product.productName}}</td>
+            <td class="col">{{product.price}}</td>
+            <td><button class="btn btn-danger" (click)="removeProduct(product)">Remover</button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="p-4 pb-0">
+      <label class="form-label">Nit del Cliente</label>
+      <input [formControl]="nit" class="form-control" type="text" placeholder="Ingrese el nit del cliente">
+    </div>
+    <div class="p-4">
+      <button [disabled]="nit.invalid || nit.value ===''" (click)="searchClient()" class="btn btn-primary">Buscar</button>
+    </div>
+    <div class="form-control" *ngIf="this.clientDataState === ClientDataState.FOUND">
+      <div class="p-4 pb-0">
+        <label class="form-label" for="updateName">Nombre del cliente</label>
+        <input class="form-control" [formControl]="updateName" id="updateName" type="text" placeholder="Ingrese el nombre del cliente">
+      </div>
+      <div class="p-4 pb-0">
+        <button class="btn btn-primary" (click)="updateClient()">Actualizar</button>
+      </div>
+      <div class="p-4 pb-0" *ngIf="this.clientData && this.clientData.clientCard">
+        <p>Tarjeta: {{this.clientData.clientCard.cardType.cardName}}</p>
+        <p>Puntos actuales: {{this.clientData.clientCard.currentPoints}}</p>
+        <div class="form-check">
+          <input [formControl]="usePointsControl" (change)="usePoints($event)" id="use-points" type="checkbox" class="form-check-input">
+          <label for="use-points" class="form-check-label">Usar puntos</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-control" *ngIf="this.clientDataState === ClientDataState.NOT_FOUND">
+      <div class="p-4 pb-0">
+        <label class="form-label" for="clientName">Nombre del cliente</label>
+        <input class="form-control" [formControl]="clientName" id="clientName" type="text" placeholder="Ingrese el nombre del cliente">
+      </div>
+      <div class="p-4 pb-0">
+        <button class="btn btn-primary" (click)="saveClient()">Guardar</button>
+      </div>
+    </div>
+
+    <div class="p-4 pb-0">
+      <p class="form-label">subtotal: {{this.subTotal}}</p>
+      <p class="form-label">descuento: {{this.discount}}</p>
+      <p class="form-label">total: {{this.total}}</p>
+    </div>
+  </form>
+</div>

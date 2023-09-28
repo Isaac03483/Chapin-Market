@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {BranchOffice} from "../../core/models/BranchOffice";
@@ -9,6 +9,7 @@ import {BranchOffice} from "../../core/models/BranchOffice";
 export class ProductService {
 
   private readonly Url = 'http://localhost:8080/chapin-market';
+  productToSaleList: EventEmitter<any> = new EventEmitter();
 
   constructor(private httpClient: HttpClient) { }
 
