@@ -57,8 +57,9 @@ CREATE TABLE schema_sales.bills (
     client_nit VARCHAR(10) NOT NULL REFERENCES schema_clients.clients(nit),
     employee_id INT NOT NULL REFERENCES schema_staff.employees(employee_id),
     branch_office_id INT NOT NULL REFERENCES schema_branch_offices.branch_offices(branch_office_id),
-    total_without_discount DECIMAL(10,2) NOT NULL,
-    total_with_discount DECIMAL(10,2) NOT NULL
+    sub_total DECIMAL(10,2) NOT NULL,
+    discount DECIMAL(10, 2) NOT NULL,
+    total DECIMAL(10,2) NOT NULL
 );
 
 CREATE TABLE schema_sales.sales_details (
@@ -79,7 +80,8 @@ CREATE TABLE schema_clients.cards_types (
 CREATE TABLE schema_clients.clients_cards (
     client_nit VARCHAR(10) NOT NULL PRIMARY KEY REFERENCES schema_clients.clients(nit),
     card_id INT NOT NULL REFERENCES schema_clients.cards_types(card_type_id),
-    current_spent DECIMAL(10, 2) NOT NULL
+    current_spent DECIMAL(10, 2) NOT NULL,
+    current_points INT NOT NULL
 );
 
 INSERT INTO schema_branch_offices.branch_offices(name, department)
@@ -2152,24 +2154,24 @@ VALUES ('Azúcar', 'ESTANTERIA','La montaña', 3, 25.00),
 
        ('Galletas cremas', 'ESTANTERIA', 'Pozuelo', 3, 16.50);
 
-INSERT INTO schema_sales.bills(bill_date, client_nit, employee_id, branch_office_id, total_without_discount, total_with_discount)
-VALUES ('2023-09-13', '109749538', 1, 1, 30.00, 30.00),
-       ('2023-09-13', '135831143', 2, 1, 25.00, 25.00),
-       ('2023-09-13', '306214331', 2, 1, 40.00, 40.00),
-       ('2023-09-13', '907558831', 1, 1, 30.00, 30.00),
-       ('2023-09-13', '306214331', 3, 1, 60.00, 60.00),
+INSERT INTO schema_sales.bills(bill_date, client_nit, employee_id, branch_office_id, sub_total, discount,total)
+VALUES ('2023-09-13', '109749538', 1, 1, 30.00, 0, 30.00),
+       ('2023-09-13', '135831143', 2, 1, 25.00, 0, 25.00),
+       ('2023-09-13', '306214331', 2, 1, 40.00, 0, 40.00),
+       ('2023-09-13', '907558831', 1, 1, 30.00, 0, 30.00),
+       ('2023-09-13', '306214331', 3, 1, 60.00, 0, 60.00),
 
-       ('2023-09-13', '495312209', 7, 2, 55.00, 55.00),
-       ('2023-09-13', '495312209', 7, 2, 30.00, 30.00),
-       ('2023-09-13', '109749538', 8, 2, 10.00, 10.00),
-       ('2023-09-13', '554931023', 10, 2, 25.00, 25.00),
-       ('2023-09-13', '554931023', 12, 2, 45.00, 45.00),
+       ('2023-09-13', '495312209', 7, 2, 55.00, 0, 55.00),
+       ('2023-09-13', '495312209', 7, 2, 30.00, 0, 30.00),
+       ('2023-09-13', '109749538', 8, 2, 10.00, 0, 10.00),
+       ('2023-09-13', '554931023', 10, 2, 25.00, 0, 25.00),
+       ('2023-09-13', '554931023', 12, 2, 45.00, 0, 45.00),
 
-       ('2023-09-13', '109749538', 13, 3, 30.00, 30.00),
-       ('2023-09-13', '495312209', 13, 3, 45.00, 45.00),
-       ('2023-09-13', '867880432', 15, 3, 100.00, 100.00),
-       ('2023-09-13', '109749538', 14, 3, 35.00, 35.00),
-       ('2023-09-13', '867880432', 16, 3, 60.00, 60.00);
+       ('2023-09-13', '109749538', 13, 3, 30.00, 0, 30.00),
+       ('2023-09-13', '495312209', 13, 3, 45.00, 0, 45.00),
+       ('2023-09-13', '867880432', 15, 3, 100.00, 0, 100.00),
+       ('2023-09-13', '109749538', 14, 3, 35.00, 0, 35.00),
+       ('2023-09-13', '867880432', 16, 3, 60.00, 0, 60.00);
 
 INSERT INTO schema_sales.sales_details(bill_id, product_id, product_amount)
 VALUES (1, 321, 1),(1, 320, 1),

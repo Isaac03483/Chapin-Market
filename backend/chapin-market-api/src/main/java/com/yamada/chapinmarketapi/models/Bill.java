@@ -22,15 +22,20 @@ public class Bill {
     private LocalDate billDate = LocalDate.now();
 
     @ManyToOne
+    @JoinColumn(name = "client_nit")
     private Client client;
 
     @OneToOne
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @ManyToOne
+    @JoinColumn(name = "branch_office_id")
     private BranchOffice branchOffice;
-    private BigDecimal totalWithoutDiscount;
-    private BigDecimal totalWithDiscount;
+
+    private BigDecimal subTotal;
+    private BigDecimal discount;
+    private BigDecimal total;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "bill")
     private List<SaleDetail> saleDetails;

@@ -1,5 +1,5 @@
 <div class="container p-5">
-  <form  class="form-control">
+  <form [formGroup]="billForm" (ngSubmit)="saveBill()" class="form-control">
     <h1 class="p-4">Agregar nueva venta</h1>
     <div class="p-4 pb-0" *ngIf="this.productsList.length > 0">
       <h5 class="form-label">Productos</h5>
@@ -27,7 +27,7 @@
       <input [formControl]="nit" class="form-control" type="text" placeholder="Ingrese el nit del cliente">
     </div>
     <div class="p-4">
-      <button [disabled]="nit.invalid || nit.value ===''" (click)="searchClient()" class="btn btn-primary">Buscar</button>
+      <button type="button" [disabled]="nit.invalid || nit.value ===''" (click)="searchClient()" class="btn btn-primary">Buscar</button>
     </div>
     <div class="form-control" *ngIf="this.clientDataState === ClientDataState.FOUND">
       <div class="p-4 pb-0">
@@ -35,15 +35,11 @@
         <input class="form-control" [formControl]="updateName" id="updateName" type="text" placeholder="Ingrese el nombre del cliente">
       </div>
       <div class="p-4 pb-0">
-        <button class="btn btn-primary" (click)="updateClient()">Actualizar</button>
+        <button type="button" class="btn btn-primary" (click)="updateClient()">Actualizar</button>
       </div>
       <div class="p-4 pb-0" *ngIf="this.clientData && this.clientData.clientCard">
         <p>Tarjeta: {{this.clientData.clientCard.cardType.cardName}}</p>
         <p>Puntos actuales: {{this.clientData.clientCard.currentPoints}}</p>
-        <div class="form-check">
-          <input [formControl]="usePointsControl" (change)="usePoints($event)" id="use-points" type="checkbox" class="form-check-input">
-          <label for="use-points" class="form-check-label">Usar puntos</label>
-        </div>
       </div>
     </div>
     <div class="form-control" *ngIf="this.clientDataState === ClientDataState.NOT_FOUND">
@@ -52,14 +48,22 @@
         <input class="form-control" [formControl]="clientName" id="clientName" type="text" placeholder="Ingrese el nombre del cliente">
       </div>
       <div class="p-4 pb-0">
-        <button class="btn btn-primary" (click)="saveClient()">Guardar</button>
+        <button type="button" class="btn btn-primary" (click)="saveClient()">Guardar</button>
       </div>
+    </div>
+
+    <div class="form-check p-4 pb-0">
+      <input [formControl]="usePointsControl" [checked]="this.usePointsChecked" (change)="usePoints($event)" id="use-points" type="checkbox" class="form-check-input">
+      <label for="use-points" class="form-check-label">Usar puntos</label>
     </div>
 
     <div class="p-4 pb-0">
       <p class="form-label">subtotal: {{this.subTotal}}</p>
       <p class="form-label">descuento: {{this.discount}}</p>
       <p class="form-label">total: {{this.total}}</p>
+    </div>
+    <div class="p-4">
+      <button type="submit" class="btn btn-primary">Guardar Venta</button>
     </div>
   </form>
 </div>

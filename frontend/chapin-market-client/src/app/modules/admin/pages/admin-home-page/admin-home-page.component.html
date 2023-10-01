@@ -8,6 +8,9 @@
     <li class="nav-item">
       <a class="nav-link a-pointer" (click)="setNavBarState(NavBarState.CARDS)">Menú Tarjetas</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link a-pointer" (click)="setNavBarState(NavBarState.REPORTS)">Menú Reportes</a>
+    </li>
     <li class="nav-item" *ngIf="this.navBarState !== NavBarState.CLOSED">
       <a class="nav-link a-pointer" style="color: red" (click)="setNavBarState(NavBarState.CLOSED)">Cerrar</a>
     </li>
@@ -18,5 +21,8 @@
   </div>
   <div *ngIf="this.navBarState === NavBarState.CARDS">
     <app-cards-menu></app-cards-menu>
+  </div>
+  <div *ngIf="this.navBarState === NavBarState.REPORTS">
+    <app-reports-page></app-reports-page>
   </div>
 </div>

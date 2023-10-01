@@ -38,7 +38,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/branch-office/{id}")
-    public ResponseEntity<Page<EmployeeResponse>> getAllEmployeesByBranchOffice(@PageableDefault(size = 15) Pageable pageable,
+    public ResponseEntity<Page<EmployeeResponse>> getAllEmployeesByBranchOffice(@PageableDefault(size = 15, sort = "employeeId") Pageable pageable,
                                                                                 @PathVariable Long id) {
         Page<EmployeeResponse> allEmployeesByBranchOffice = employeeService.getAllEmployeesByBranchOffice(pageable, id);
         return ResponseEntity.ok(allEmployeesByBranchOffice);

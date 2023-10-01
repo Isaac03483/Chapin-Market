@@ -3,9 +3,10 @@ import {Employee} from "../../../../core/models/Employee";
 import {ProductService} from "../../../../services/product/product.service";
 import {ProductModel} from "../../../../core/models/ProductModel";
 import Swal from "sweetalert2";
-import {FormControl, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ClientService} from "../../../../services/client/client.service";
 import {ClientWithCard} from "../../../../core/models/ClientModel";
+import {BillService} from "../../../../services/bill/bill.service";
 
 @Component({
   selector: 'app-sale-form-page',
@@ -20,16 +21,25 @@ export class SaleFormPageComponent implements OnInit{
   subTotal : number = 0;
   discount : number = 0;
   total: number = 0;
+  usePointsChecked: boolean = false;
   clientDataState: ClientDataState = ClientDataState.WAITING;
   nit = new FormControl('', [Validators.minLength(9), Validators.pattern("[0-9]+")]);
   clientName = new FormControl('');
   updateName = new FormControl('');
   usePointsControl = new FormControl(false);
+  billForm: FormGroup = new FormGroup({});
 
-  constructor(private productService:ProductService, private clientService: ClientService) {
+  constructor(private productService:ProductService, private clientService: ClientService, private billService: BillService) {
   }
 
   ngOnInit(): void {
+
+    this.billForm = new FormGroup(
+      {
+        nit: this.nit,
+        usePointsControl: this.usePointsControl
+      }
+    )
 
     this.updateBillInfo();
 
@@ -111,20 +121,47 @@ export class SaleFormPageComponent implements OnInit{
 
   usePoints($event: any) {
     // console.log($event);
-    if(!this.clientData) {
-      return;
-    }
 
     if(!$event.target.checked) {
+      this.usePointsChecked = !$event.target.checked;
 
       this.discount = 0
       this.updateBillInfo();
+      return;
+    }
+
+    if(!this.clientData) {
+      this.usePointsChecked = !$event.target.checked;
+
+      Swal.fire({
+        title: "Sin cliente",
+        icon: "warning",
+        text: "Solo los clientes registrados (con tarjeta) pueden usar puntos",
+        showConfirmButton: false,
+        timer: 1500
+      })
+      return;
+    }
+
+    if(!this.clientData.clientCard) {
+      this.usePointsChecked = !$event.target.checked;
+
+      Swal.fire({
+        title: "Sin tarjeta",
+        icon: "warning",
+        text: "El cliente no posee una tarjeta",
+        showConfirmButton: false,
+        timer: 1500
+      })
+
 
       return;
     }
 
 
     if(this.clientData.clientCard.currentPoints === 0) {
+      this.usePointsChecked = !$event.target.checked;
+
       Swal.fire({
         title: "Sin puntos",
         icon: "warning",
@@ -137,12 +174,14 @@ export class SaleFormPageComponent implements OnInit{
 
     if(this.clientData.clientCard.currentPoints > this.subTotal) {
       this.discount = this.subTotal;
-
       this.updateBillInfo();
+      this.usePointsChecked = $event.target.checked;
+
       return;
     }
 
     this.discount = this.clientData?.clientCard.currentPoints;
+    this.usePointsChecked = $event.target.checked;
     this.updateBillInfo();
   }
 
@@ -267,6 +306,37 @@ export class SaleFormPageComponent implements OnInit{
       showCancelButton: true,
       showConfirmButton: true
     })
+  }
+
+  saveBill() {
+
+    if(this.productsList.length === 0) {
+      Swal.fire({
+        title: "Oops!",
+        icon: "warning",
+        text: "No se ha seleccionado ningún producto",
+        showConfirmButton: false,
+        timer: 2000
+      })
+      return;
+    }
+
+    const { nit, usePointsControl }  = this.billForm.value;
+
+    const productIdsList = this.productsList.map(p =>  p.productId);
+
+    console.log(nit, usePointsControl, productIdsList);
+
+    this.billService.addNewBill(nit, this.employeeData.id, this.employeeData.branchOffice.id, productIdsList, usePointsControl)
+      .subscribe({
+        next: (response) => {
+
+        },
+        error: (error) => {
+
+        }
+      })
+
   }
 }
 

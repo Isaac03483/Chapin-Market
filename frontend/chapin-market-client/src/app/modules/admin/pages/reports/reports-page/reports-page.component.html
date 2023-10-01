@@ -1,0 +1,33 @@
+<div class="container p-5">
+  <h1>Reportes</h1>
+
+  <form [formGroup]="this.reportForm" (ngSubmit)="sendData()" class="form-control">
+    <div class="row p-4">
+      <div class="col">
+        <label for="report-type" class="form-label">Tipo de reporte</label>
+        <select formControlName="reportType" id="report-type" class="form-select">
+          <option class="form-control" *ngFor="let option of options" [value]="option.id">{{option.value}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="before" class="form-label">De</label>
+        <input formControlName="before" id="before" class="form-control" type="date">
+      </div>
+      <div class="col">
+        <label for="after" class="form-label">A</label>
+        <input formControlName="after" id="after" class="form-control" type="date">
+      </div>
+      <div class="p-4">
+        <button [disabled]="this.reportForm.invalid && this.reportForm.touched" class="btn btn-primary">Enviar</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="p-4">
+    <table></table>
+    <table></table>
+    <table></table>
+    <table></table>
+  </div>
+
+</div>

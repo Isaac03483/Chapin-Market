@@ -17,9 +17,11 @@ public class SaleDetail {
     private Long detailId;
 
     @ManyToOne
+    @JoinColumn(name = "bill_id")
     private Bill bill;
 
     @OneToOne
+    @JoinColumn(name = "product_id")
     private Product product;
-    private Integer amount;
+    private Integer productAmount;
 }

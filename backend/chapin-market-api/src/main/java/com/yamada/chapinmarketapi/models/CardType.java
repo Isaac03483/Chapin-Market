@@ -1,5 +1,6 @@
 package com.yamada.chapinmarketapi.models;
 
+import com.yamada.chapinmarketapi.dto.CardTypeDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,4 +25,17 @@ public class CardType {
     private BigDecimal requirements;
     private BigDecimal minSpent;
 
+    public void update(CardTypeDTO cardTypeDTO) {
+        if(cardTypeDTO.pointsPerReq() != null) {
+            this.pointsPerReq = cardTypeDTO.pointsPerReq();
+        }
+
+        if(cardTypeDTO.requirements() != null) {
+            this.requirements = cardTypeDTO.requirements();
+        }
+
+        if(cardTypeDTO.minSpent() != null) {
+            this.minSpent = cardTypeDTO.minSpent();
+        }
+    }
 }

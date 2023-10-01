@@ -4,6 +4,7 @@ import com.yamada.chapinmarketapi.dto.AddEmployeeRequest;
 import com.yamada.chapinmarketapi.dto.EmployeeResponse;
 import com.yamada.chapinmarketapi.models.BranchOffice;
 import com.yamada.chapinmarketapi.models.Employee;
+import com.yamada.chapinmarketapi.repositories.BranchOfficeRepository;
 import com.yamada.chapinmarketapi.repositories.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final BranchOfficeRepository branchOfficeRepository;
     private final PasswordEncoder passwordEncoder;
 
     public Employee addEmployee(AddEmployeeRequest addEmployeeRequest) {
@@ -27,8 +29,7 @@ public class EmployeeService {
     }
 
     public Page<EmployeeResponse> getAllEmployeesByBranchOffice(Pageable pageable, Long id) {
-        BranchOffice branchOffice = new BranchOffice();
-        branchOffice.setBranchOfficeId(id);
+        BranchOffice branchOffice = this.branchOfficeRepository.getReferenceById(id);
         Page<Employee> employees = employeeRepository.findAllByBranchOffice(pageable, branchOffice);
         return employees.map(EmployeeResponse::new);
     }

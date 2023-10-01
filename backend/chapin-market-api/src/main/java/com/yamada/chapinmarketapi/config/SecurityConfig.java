@@ -28,7 +28,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(httpSecurity -> httpSecurity
                         .requestMatchers(HttpMethod.POST,"/chapin-market/login").permitAll()
                         .requestMatchers("/chapin-market/employees/**").permitAll()
-                        .requestMatchers("/chapin-market/products/**").permitAll())
+                        .requestMatchers("/chapin-market/products/**").permitAll()
+                        .requestMatchers("/chapin-market/cards/**").permitAll()
+                        .requestMatchers("/chapin-market/clients/**").permitAll()
+                        .requestMatchers("/chapin-market/client-cards/**").permitAll()
+                        .requestMatchers("/chapin-market/bills/**").permitAll())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();

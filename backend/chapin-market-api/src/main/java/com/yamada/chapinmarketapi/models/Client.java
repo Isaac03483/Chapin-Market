@@ -30,4 +30,8 @@ public class Client {
         this.nit = clientDTO.nit();
         this.clientName = clientDTO.clientName();
     }
+
+    public void update(ClientDTO clientDTO) {
+        this.clientName = clientDTO.clientName();
+    }
 }

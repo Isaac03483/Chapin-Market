@@ -37,5 +37,5 @@ export class AdminHomePageComponent implements OnInit {
 }
 
 enum NavBarState {
-  EMPLOYEES, CARDS, CLOSED
+  EMPLOYEES, CARDS, REPORTS, CLOSED
 }

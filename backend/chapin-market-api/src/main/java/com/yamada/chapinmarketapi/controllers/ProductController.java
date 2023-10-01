@@ -38,7 +38,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}/{state}")
-    public ResponseEntity<Page<ProductResponse>> getProductsByBranchOfficeIdAndProductState(@PageableDefault(size = 15) Pageable pageable,
+    public ResponseEntity<Page<ProductResponse>> getProductsByBranchOfficeIdAndProductState(@PageableDefault(size = 15, sort = "productId") Pageable pageable,
                                                                               @PathVariable Long id, @PathVariable String state) {
         Page<ProductResponse> productResponses = productService.getProductsByBranchOfficeIdAndProductState(pageable, id, state);
         return ResponseEntity.ok(productResponses);

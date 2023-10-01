@@ -23,4 +23,10 @@ public class ClientCard {
     @JoinColumn(name = "card_id")
     private CardType cardType;
     private BigDecimal currentSpent;
+    private Integer currentPoints;
+
+    public void update(CardType cardType) {
+        this.cardType = cardType;
+        this.currentSpent = BigDecimal.ZERO;
+    }
 }
