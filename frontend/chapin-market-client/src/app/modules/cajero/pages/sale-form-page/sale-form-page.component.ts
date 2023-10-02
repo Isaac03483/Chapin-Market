@@ -314,6 +314,7 @@ export class SaleFormPageComponent implements OnInit{
 
   saveBill() {
 
+    console.log(this.productsList.length)
     if(this.productsList.length === 0) {
       Swal.fire({
         title: "Oops!",
@@ -341,6 +342,10 @@ export class SaleFormPageComponent implements OnInit{
             showConfirmButton: false,
             timer: 2000
           })
+          this.billForm.reset();
+          this.usePointsControl.setValue(false);
+          this.productsList = [];
+          this.clientDataState = ClientDataState.WAITING;
         },
         error: (error) => {
           console.error(error)
