@@ -3,6 +3,7 @@ package com.yamada.chapinmarketapi.controllers;
 import com.yamada.chapinmarketapi.dto.CardTypeDTO;
 import com.yamada.chapinmarketapi.services.CardTypeService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +26,7 @@ public class CardTypeController {
 
     @PutMapping()
     @Transactional
-    public ResponseEntity<CardTypeDTO> updateCardType(@RequestBody CardTypeDTO cardTypeDTO) {
+    public ResponseEntity<CardTypeDTO> updateCardType(@RequestBody @Valid CardTypeDTO cardTypeDTO) {
         System.out.println(cardTypeDTO);
         CardTypeDTO cardTypeResponse = cardService.updateCardType(cardTypeDTO);
         return ResponseEntity.ok(cardTypeResponse);

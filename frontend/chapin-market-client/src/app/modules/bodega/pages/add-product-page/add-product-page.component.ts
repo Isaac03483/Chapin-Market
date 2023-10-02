@@ -34,17 +34,28 @@ export class AddProductPageComponent implements OnInit{
     const { productName, brand, price } = this.addProductForm.value;
 
     this.productService.addNewProduct(productName, this.employeeData!.branchOffice.id, brand, price)
-      .subscribe((response) => {
+      .subscribe({
 
-        console.log(response)
-        this.addProductForm.reset();
-        Swal.fire({
-          title: 'Producto Guardado!',
-          text: 'El producto se guardó con éxito!',
-          icon: 'success',
-          timer: 1000,
-          showConfirmButton: false
-        })
+        next: (response) => {
+          console.log(response)
+          this.addProductForm.reset();
+          Swal.fire({
+            title: 'Producto Guardado!',
+            text: 'El producto se guardó con éxito!',
+            icon: 'success',
+            timer: 1000,
+            showConfirmButton: false
+          })
+        },
+        error: (error) => {
+          Swal.fire({
+            title: "Error!",
+            icon: "error",
+            text: "No se pudo guardar el producto, verifique los campos",
+            showConfirmButton: false,
+            timer: 2000
+          })
+        }
       })
   }
 

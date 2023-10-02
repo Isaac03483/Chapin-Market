@@ -6,6 +6,7 @@ import com.yamada.chapinmarketapi.dto.UpdateClientRequest;
 import com.yamada.chapinmarketapi.models.Client;
 import com.yamada.chapinmarketapi.services.ClientService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,14 +34,14 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<ClientDTO> addClient(@RequestBody ClientDTO clientDTO) {
+    public ResponseEntity<ClientDTO> addClient(@RequestBody @Valid ClientDTO clientDTO) {
         ClientDTO clientResponse = clientService.addClient(clientDTO);
         return ResponseEntity.ok(clientResponse);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<ClientDTO> updateClient(@RequestBody UpdateClientRequest updateClientRequest) {
+    public ResponseEntity<ClientDTO> updateClient(@RequestBody @Valid UpdateClientRequest updateClientRequest) {
         Client client = this.clientService.updateClient(updateClientRequest);
         return ResponseEntity.ok(new ClientDTO(client));
     }

@@ -32,7 +32,7 @@ public class ProductController {
 
     @PutMapping
     @Transactional
-    public ResponseEntity<ProductResponse> moveProductToEstanteria(@RequestBody MoveProductRequest moveProductRequest) {
+    public ResponseEntity<ProductResponse> moveProductToEstanteria(@RequestBody @Valid MoveProductRequest moveProductRequest) {
         ProductResponse productResponse = productService.moveProductToEstanteria(moveProductRequest);
         return ResponseEntity.ok(productResponse);
     }

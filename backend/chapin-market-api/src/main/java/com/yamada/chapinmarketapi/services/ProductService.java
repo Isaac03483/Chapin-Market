@@ -33,11 +33,13 @@ public class ProductService {
     }
 
     public ProductResponse moveProductToEstanteria(MoveProductRequest moveProductRequest) {
-        Product product = productRepository.getReferenceById(moveProductRequest.productId());
+        boolean productExists = productRepository.existsById(moveProductRequest.productId());
 
-        if (product == null) {
-            throw new ProductNotFoundException("Product not found");
+        if (!productExists) {
+            throw new ProductNotFoundException("Producto no encontrado");
         }
+
+        Product product = productRepository.getReferenceById(moveProductRequest.productId());
 
         if(!product.getBranchOffice().getBranchOfficeId().equals(moveProductRequest.branchOfficeId())) {
             throw new BranchOfficeDontMatchException("Branch office don't match");
@@ -49,11 +51,13 @@ public class ProductService {
     }
 
     public Page<ProductResponse> getProductsByBranchOfficeIdAndProductState(Pageable pageable, Long id, String state) {
-        BranchOffice branchOffice = branchOfficeRepository.getReferenceById(id);
+        boolean exists = branchOfficeRepository.existsById(id);
 
-        if (branchOffice == null) {
-            throw new BranchOfficeDontMatchException("Branch office id doesn't match");
+        if (!exists) {
+            throw new BranchOfficeDontMatchException("El id de la sucursal no se encontró");
         }
+
+        BranchOffice branchOffice = branchOfficeRepository.getReferenceById(id);
 
         ProductState productState = switch (state) {
             case "BODEGA" -> ProductState.BODEGA;

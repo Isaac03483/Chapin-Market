@@ -36,14 +36,25 @@ export class UpdateCardPageComponent implements OnInit{
     if(this.cardToUpdate) {
       const { pointsPerReq, minSpent } = this.updateForm.value;
       this.cardService.updateCard(this.cardToUpdate.id, this.cardToUpdate.cardName, this.cardToUpdate.requirements, pointsPerReq, minSpent)
-        .subscribe((response) => {
-          Swal.fire({
-            title: "Cambios guardados!",
-            icon: "success",
-            text: "Tarjeta actualizada exitosamente",
-            showConfirmButton: false,
-            timer: 1500
-          })
+        .subscribe({
+          next: (response) => {
+            Swal.fire({
+              title: "Cambios guardados!",
+              icon: "success",
+              text: "Tarjeta actualizada exitosamente",
+              showConfirmButton: false,
+              timer: 2000
+            })
+          },
+          error: (error) => {
+            Swal.fire({
+              title: "Error!",
+              icon: "error",
+              text: "No se pudo actualizar la tarjeta, verifique los campos",
+              showConfirmButton: false,
+              timer: 2000
+            })
+          }
         })
     }
   }

@@ -1,4 +1,6 @@
 package com.yamada.chapinmarketapi.dto;
 
-public record EmployeeTypeRequest(Long employeeTypeId) {
+import jakarta.validation.constraints.NotNull;
+
+public record EmployeeTypeRequest(@NotNull Long employeeTypeId) {
 }

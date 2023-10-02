@@ -1,4 +1,6 @@
 package com.yamada.chapinmarketapi.dto;
 
-public record MoveProductRequest(Long productId, Long branchOfficeId) {
+import jakarta.validation.constraints.NotNull;
+
+public record MoveProductRequest(@NotNull Long productId,@NotNull Long branchOfficeId) {
 }

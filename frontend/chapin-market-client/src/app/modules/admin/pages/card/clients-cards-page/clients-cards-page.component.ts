@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ClientCardService} from "../../../../../services/client-card/client-card.service";
 import {ClientCardModel} from "../../../../../core/models/ClientCardModel";
 import Swal from "sweetalert2";
+import {HttpStatusCode} from "@angular/common/http";
 
 @Component({
   selector: 'app-clients-cards-page',
@@ -48,6 +49,37 @@ export class ClientsCardsPageComponent implements OnInit {
 
 
   sendData(clientCard: ClientCardModel) {
-
+    this.clientCardService.improveClientCard(clientCard.clientNit)
+      .subscribe({
+        next: (response) => {
+          Swal.fire({
+            title: "Actualizado",
+            icon: "success",
+            text: "Tarjeta actualizada",
+            showConfirmButton: false,
+            timer: 2000
+          })
+        },
+        error: (error) => {
+          console.log(error);
+          if(error.status === HttpStatusCode.UnprocessableEntity) {
+            Swal.fire({
+              title: "Error",
+              icon: "error",
+              text: "No se cuenta con los puntos necesarios",
+              showConfirmButton: false,
+              timer: 2000
+            })
+          } else if(error.status === HttpStatusCode.NotFound) {
+            Swal.fire({
+              title: "Error",
+              icon: "error",
+              text: "No se encontró otra mejora para la tarjeta",
+              showConfirmButton: false,
+              timer: 2000
+            })
+          }
+        }
+      })
   }
 }

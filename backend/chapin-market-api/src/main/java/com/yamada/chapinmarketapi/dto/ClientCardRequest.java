@@ -1,4 +1,6 @@
 package com.yamada.chapinmarketapi.dto;
 
-public record ClientCardRequest(String clientNit) {
+import jakarta.validation.constraints.NotBlank;
+
+public record ClientCardRequest(@NotBlank String clientNit) {
 }

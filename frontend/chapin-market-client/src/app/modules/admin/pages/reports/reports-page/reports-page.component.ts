@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {BillService} from "../../../../../services/bill/bill.service";
+import {BillModel, BranchOfficeWithTotal, ClientWithTotal} from "../../../../../core/models/ReportModels";
 
 @Component({
   selector: 'app-reports-page',
@@ -19,6 +20,8 @@ export class ReportsPageComponent implements OnInit{
 
   reportForm : FormGroup = new FormGroup({})
   rows: any[] = [];
+  p: number = 1;
+  reportType: ReportType = ReportType.NONE;
 
   constructor(private billService: BillService) {
   }
@@ -27,8 +30,8 @@ export class ReportsPageComponent implements OnInit{
     this.reportForm = new FormGroup(
       {
         reportType: new FormControl(0, [Validators.required, Validators.min(1)]),
-        before: new FormControl('', Validators.required),
-        after: new FormControl('', Validators.required)
+        before: new FormControl(''),
+        after: new FormControl('')
       }
     )
   }
@@ -39,6 +42,13 @@ export class ReportsPageComponent implements OnInit{
     console.log(reportType, before, after);
     switch (reportType) {
       case "1":
+        this.billService.historical(before, after)
+          .subscribe({
+            next: (response) => {
+              this.rows = response;
+              this.reportType = ReportType.HISTORICAL;
+            }
+          })
 
         break;
       case "2":
@@ -47,6 +57,8 @@ export class ReportsPageComponent implements OnInit{
           .subscribe({
             next: (response) => {
               console.log(response);
+              this.rows = response;
+              this.reportType = ReportType.BILLS;
             }
           })
         break;
@@ -55,6 +67,9 @@ export class ReportsPageComponent implements OnInit{
           .subscribe({
             next: (response) => {
               console.log(response);
+              this.rows = response;
+              this.reportType = ReportType.BRANCHES;
+
             }
           })
         break;
@@ -63,10 +78,20 @@ export class ReportsPageComponent implements OnInit{
           .subscribe({
             next: (response) => {
               console.log(response);
+              this.rows = response;
+              this.reportType = ReportType.CLIENTS;
+
+
             }
           })
         break;
     }
   }
 
+  protected readonly BillModel = BillModel;
+  protected readonly ReportType = ReportType;
+}
+
+enum ReportType {
+  BILLS, CLIENTS, BRANCHES, HISTORICAL, NONE
 }

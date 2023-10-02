@@ -24,7 +24,11 @@ export class ClientCardService {
     return this.httpClient.post(`${this.Url}/client-cards`, body)
   }
 
-  improveClientCard() {
+  improveClientCard(clientNit: string) : Observable<any> {
+    const body = {
+      clientNit
+    }
 
+    return this.httpClient.put(`${this.Url}/client-cards`, body)
   }
 }

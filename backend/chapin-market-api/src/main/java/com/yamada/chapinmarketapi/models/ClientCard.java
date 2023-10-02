@@ -27,6 +27,5 @@ public class ClientCard {
 
     public void update(CardType cardType) {
         this.cardType = cardType;
-        this.currentSpent = BigDecimal.ZERO;
     }
 }

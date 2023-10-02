@@ -2154,6 +2154,9 @@ VALUES ('Azúcar', 'ESTANTERIA','La montaña', 3, 25.00),
 
        ('Galletas cremas', 'ESTANTERIA', 'Pozuelo', 3, 16.50);
 
+-- INSERT INTO schema_clients.clients_cards(client_nit, card_id, current_spent, current_points)
+-- VALUES ('cf', 1, 0, 0);
+
 INSERT INTO schema_sales.bills(bill_date, client_nit, employee_id, branch_office_id, sub_total, discount,total)
 VALUES ('2023-09-13', '109749538', 1, 1, 30.00, 0, 30.00),
        ('2023-09-13', '135831143', 2, 1, 25.00, 0, 25.00),

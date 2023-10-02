@@ -64,16 +64,29 @@ export class AddEmployeePageComponent implements OnInit{
     }
 
     this.employeeService.addEmployee(employeeName, userName, employeePassword, this.employeeData.branchOffice.id, employeeType)
-      .subscribe((response) => {
-        console.log(response)
-        this.employeeService.eventEmitter.emit(response);
-        Swal.fire({
-          title: "Ok",
-          text: "Usuario guardado con éxito",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1500
-        })
+      .subscribe({
+        next: (response) => {
+          console.log(response)
+          this.employeeService.eventEmitter.emit(response);
+          Swal.fire({
+            title: "Ok",
+            text: "Usuario guardado con éxito",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.employeeForm.reset();
+        },
+        error: (error) => {
+          console.log(error.error);
+          Swal.fire({
+            title: "Error!",
+            icon: "error",
+            text: "No se pudo guardar, verifique los campos",
+            showConfirmButton: false,
+            timer: 2000
+          })
+        }
       })
   }
 }

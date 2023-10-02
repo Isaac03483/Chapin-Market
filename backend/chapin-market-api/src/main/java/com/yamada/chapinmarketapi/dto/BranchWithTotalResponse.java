@@ -7,6 +7,6 @@ import java.math.BigDecimal;
 public record BranchWithTotalResponse(BranchOfficeResponse branchOffice, BigDecimal total) {
 
     public BranchWithTotalResponse(BranchOfficeWithTotal branchOffice) {
-        this(new BranchOfficeResponse(branchOffice.getBranchOffice()), branchOffice.getTotal());
+        this(new BranchOfficeResponse(branchOffice.getBranch()), branchOffice.getTotal());
     }
 }

@@ -5,6 +5,7 @@ import com.yamada.chapinmarketapi.dto.EmployeeResponse;
 import com.yamada.chapinmarketapi.exceptions.UserNotFoundException;
 import com.yamada.chapinmarketapi.models.Employee;
 import com.yamada.chapinmarketapi.services.EmployeeService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +33,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<EmployeeResponse> addEmployee(@RequestBody AddEmployeeRequest addEmployeeRequest) {
+    public ResponseEntity<EmployeeResponse> addEmployee(@RequestBody @Valid AddEmployeeRequest addEmployeeRequest) {
         Employee employee = employeeService.addEmployee(addEmployeeRequest);
         return ResponseEntity.ok(new EmployeeResponse(employee));
     }

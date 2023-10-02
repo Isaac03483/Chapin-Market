@@ -1,4 +1,6 @@
 package com.yamada.chapinmarketapi.dto;
 
-public record BranchOfficeRequest(Long branchOfficeId) {
+import jakarta.validation.constraints.NotNull;
+
+public record BranchOfficeRequest(@NotNull Long branchOfficeId) {
 }

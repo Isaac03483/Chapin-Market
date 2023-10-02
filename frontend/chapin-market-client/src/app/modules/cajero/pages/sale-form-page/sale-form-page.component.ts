@@ -189,23 +189,27 @@ export class SaleFormPageComponent implements OnInit{
     let clientName = this.clientName.value;
     let nit = this.nit.value;
 
-    if(clientName && nit) {
-      this.clientService.addClient(nit, clientName)
-        .subscribe({
-          next: (response) => {
-            Swal.fire({
-              title: "Guardado!",
-              icon: "success",
-              text: "Cliente guardado con éxito",
-              showConfirmButton: false,
-              timer: 2000
-            });
-          },
-          error: (error) => {
-
-          }
-        })
-    }
+    this.clientService.addClient(nit!, clientName!)
+      .subscribe({
+        next: (response) => {
+          Swal.fire({
+            title: "Guardado!",
+            icon: "success",
+            text: "Cliente guardado con éxito",
+            showConfirmButton: false,
+            timer: 2000
+          });
+        },
+        error: (error) => {
+          Swal.fire({
+            title: "Error!",
+            icon: "error",
+            text: "No se pudo guardar el cliente",
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
+      })
   }
 
   updateClient() {
@@ -327,13 +331,37 @@ export class SaleFormPageComponent implements OnInit{
 
     console.log(nit, usePointsControl, productIdsList);
 
-    this.billService.addNewBill(nit, this.employeeData.id, this.employeeData.branchOffice.id, productIdsList, usePointsControl)
+    this.billService.addNewBill(nit.toUpperCase(), this.employeeData.id, this.employeeData.branchOffice.id, productIdsList, usePointsControl)
       .subscribe({
         next: (response) => {
-
+          Swal.fire({
+            title: "Guardado!",
+            icon: "success",
+            text: "Venta realizada",
+            showConfirmButton: false,
+            timer: 2000
+          })
         },
         error: (error) => {
+          console.error(error)
 
+          let message = '';
+
+          if(error.error instanceof Array) {
+            error.error.forEach((err: any) => {
+              message += `${err.defaultMessage}\n`
+            })
+          } else {
+            message = error.error;
+          }
+
+          Swal.fire({
+            title: "Error!",
+            icon: "error",
+            text: message,
+            showConfirmButton: false,
+            timer: 2000
+          })
         }
       })
 

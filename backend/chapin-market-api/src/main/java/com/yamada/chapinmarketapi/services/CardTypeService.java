@@ -1,6 +1,7 @@
 package com.yamada.chapinmarketapi.services;
 
 import com.yamada.chapinmarketapi.dto.CardTypeDTO;
+import com.yamada.chapinmarketapi.exceptions.CardTypeNotFoundException;
 import com.yamada.chapinmarketapi.models.CardType;
 import com.yamada.chapinmarketapi.repositories.CardTypeRepository;
 import lombok.AllArgsConstructor;
@@ -20,9 +21,14 @@ public class CardTypeService {
     }
 
     public CardTypeDTO updateCardType(CardTypeDTO cardTypeDTO) {
+        boolean cardTypeExist = cardTypeRepository.existsById(cardTypeDTO.id());
+
+        if(!cardTypeExist) {
+            throw new CardTypeNotFoundException("No se encontró la tarjeta");
+        }
+
         CardType cardType = cardTypeRepository.getReferenceById(cardTypeDTO.id());
 
-        System.out.println("ENCONTRANDO REFERENCIA");
         cardType.update(cardTypeDTO);
 
         return cardTypeDTO;

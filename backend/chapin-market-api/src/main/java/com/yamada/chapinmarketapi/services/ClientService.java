@@ -32,13 +32,13 @@ public class ClientService {
     }
 
     public Client getClientByNit(String nit) {
-        Client client = this.clientRepository.getReferenceById(nit);
+        boolean clientExist = this.clientRepository.existsById(nit);
 
-        if (client == null) {
-            throw new UserNotFoundException("Client not found");
+        if (!clientExist) {
+            throw new UserNotFoundException("Cliente no encontrado");
         }
 
-        return client;
+        return this.clientRepository.getReferenceById(nit);
     }
 
     public Client updateClient(UpdateClientRequest updateClientRequest) {
@@ -51,6 +51,12 @@ public class ClientService {
 
         if(employee == null) {
             throw new UserNotFoundException("No se encontró el usuario");
+        }
+
+        boolean clientExist = this.clientRepository.existsById(updateClientRequest.clientInfo().nit());
+
+        if (!clientExist) {
+            throw new UserNotFoundException("Cliente no encontrado");
         }
 
         Client client = this.clientRepository.getReferenceById(updateClientRequest.clientInfo().nit());
